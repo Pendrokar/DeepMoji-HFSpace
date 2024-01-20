@@ -1,5 +1,5 @@
 emoji==0.4
-numpy==1.18
+numpy==1.19.5
 scipy==1.5
 scikit-learn==0.19
 text-unidecode==1.0

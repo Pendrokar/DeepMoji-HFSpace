@@ -3,8 +3,8 @@ title: DeepMoji
 emoji: 🎭
 colorFrom: yellow
 colorTo: gray
-sdk: streamlit
-sdk_version: 1.3.0
+sdk: gradio
+sdk_version: 4.8.0
 python_version: 3.6.9
 app_file: app.py
 pinned: false

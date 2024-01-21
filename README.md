@@ -5,7 +5,7 @@ colorFrom: yellow
 colorTo: gray
 sdk: gradio
 sdk_version: 4.14.0
-python_version: 3.8
+python_version: 3.6.9
 app_file: app.py
 pinned: false
 license: gpl-3.0

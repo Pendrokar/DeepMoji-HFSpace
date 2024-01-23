@@ -1,8 +1,11 @@
 import gradio as gr
 from transformers import pipeline, AutoTokenizer, DistilBertForSequenceClassification
 
-distilTokenizer = AutoTokenizer.from_pretrained("colinryan/hf-deepmoji")
-distilModel = DistilBertForSequenceClassification.from_pretrained("colinryan/hf-deepmoji", problem_type="multi_label_classification", num_labels=10)
+modelName = "colinryan/hf-deepmoji"
+
+distilTokenizer = AutoTokenizer.from_pretrained(modelName)
+distilTokenizer.save_pretrained("./model/")
+distilModel = DistilBertForSequenceClassification.from_pretrained(modelName, problem_type="multi_label_classification", num_labels=64)
 #distilModel = DistilBertForMultilabelSequenceClassification.from_pretrained("colinryan/hf-deepmoji")
 
 pipeline = pipeline(task="text-classification", model=distilModel, tokenizer=tokenizer)

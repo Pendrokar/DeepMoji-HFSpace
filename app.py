@@ -1,7 +1,7 @@
 import gradio as gr
 from transformers import pipeline
 
-pipeline = pipeline(task="emoji-prediction", model="Uberduck/torchmoji")
+pipeline = pipeline(task="emoji-prediction", model="colinryan/hf-deepmoji")
 
 def predict(deepmoji_analysis):
     predictions = pipeline(deepmoji_analysis)

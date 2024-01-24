@@ -2,7 +2,7 @@ import gradio as gr
 import torch
 from transformers import pipeline, AutoTokenizer, DistilBertForSequenceClassification
 
-modelName = "colinryan/hf-deepmoji"
+modelName = "Pendrokar/TorchMoji"
 
 #distil_tokenizer = AutoTokenizer.from_pretrained(modelName)
 #distil_tokenizer.save_pretrained("./model/")

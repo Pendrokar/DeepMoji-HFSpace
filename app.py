@@ -7,7 +7,7 @@ modelName = "Pendrokar/TorchMoji"
 distil_tokenizer = AutoTokenizer.from_pretrained(modelName)
 #distil_tokenizer.save_pretrained("./model/")
 #distil_model = DistilBertForSequenceClassification.from_pretrained(modelName, problem_type="multi_label_classification")
-distil_model = DistilBertForMultilabelSequenceClassification.from_pretrained("colinryan/hf-deepmoji")
+distil_model = DistilBertForMultilabelSequenceClassification.from_pretrained(modelName)
 #num_labels = len(model.config.id2label)
 
 #pipeline = pipeline(task="text-classification", model=distil_model, tokenizer=distil_tokenizer)

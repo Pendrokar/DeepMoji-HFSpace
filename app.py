@@ -5,7 +5,7 @@ from transformers import pipeline, AutoTokenizer, DistilBertForSequenceClassific
 modelName = "Pendrokar/TorchMoji"
 
 distil_tokenizer = AutoTokenizer.from_pretrained(modelName)
-distil_model = DistilBertForMultilabelSequenceClassification.from_pretrained(modelName)
+distil_model = DistilBertForSequenceClassification.from_pretrained(modelName, problem_type="multi_label_classification")
 
 pipeline = pipeline(task="text-classification", model=distil_model, tokenizer=distil_tokenizer)
 

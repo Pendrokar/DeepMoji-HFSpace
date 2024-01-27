@@ -17,7 +17,6 @@ gradio_app = gr.Interface(
     fn=predict,
     inputs="text",
     outputs="text",
-    verbose=True,
     examples=[
         "This GOT show just remember LOTR times!",
         "Man, can't believe that my 30 days of training just got a NaN loss",

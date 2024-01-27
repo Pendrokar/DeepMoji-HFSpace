@@ -16,7 +16,7 @@ def predict(deepmoji_analysis):
 gradio_app = gr.Interface(
     fn=predict,
     inputs="text",
-    outputs="text"
+    outputs="text",
     verbose=True,
     examples=[
         "This GOT show just remember LOTR times!",

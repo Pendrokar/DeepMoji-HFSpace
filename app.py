@@ -14,7 +14,7 @@ def predict(deepmoji_analysis):
 
     output_text = ""
     for p in predictions:
-        output_text += p['label'] + p['score'] + "\n"
+        output_text += p['label'] + ' (' + str(p['score']) + ")\n"
     return output_text
 
 gradio_app = gr.Interface(

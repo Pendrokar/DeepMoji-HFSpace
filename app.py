@@ -12,15 +12,15 @@ pipeline = pipeline(task="text-classification", model=distil_model, tokenizer=di
 def predict(deepmoji_analysis):
     predictions = pipeline(deepmoji_analysis)
 
-    output_text = ""
+    output_text = "\n"
     for p in predictions:
         output_text += p['label'] + ' (' + str(p['score']) + ")\n"
-    return [distil_tokenizer(deepmoji_analysis)["input_ids"], output_text]
+    return str(distil_tokenizer(deepmoji_analysis)["input_ids"]) + output_text
 
 gradio_app = gr.Interface(
     fn=predict,
     inputs="text",
-    outputs=["text", "text"],
+    outputs="text",
     examples=[
         "This GOT show just remember LOTR times!",
         "Man, can't believe that my 30 days of training just got a NaN loss",

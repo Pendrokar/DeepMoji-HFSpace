@@ -15,12 +15,12 @@ def predict(deepmoji_analysis):
     output_text = ""
     for p in predictions:
         output_text += p['label'] + ' (' + str(p['score']) + ")\n"
-    return output_text
+    return [distil_tokenizer(deepmoji_analysis)["input_ids"], output_text]
 
 gradio_app = gr.Interface(
     fn=predict,
     inputs="text",
-    outputs="text",
+    outputs=["text", "text"],
     examples=[
         "This GOT show just remember LOTR times!",
         "Man, can't believe that my 30 days of training just got a NaN loss",

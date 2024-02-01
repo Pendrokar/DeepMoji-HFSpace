@@ -11,7 +11,11 @@ pipeline = pipeline(task="text-classification", model=distil_model, tokenizer=di
 
 def predict(deepmoji_analysis):
     predictions = pipeline(deepmoji_analysis)
-    return deepmoji_analysis, {p["label"]: p["score"] for p in predictions}
+
+    output_text = ""
+    for p in predictions:
+        output_text += p['label'] + p['score'] + "\n"
+    return output_text
 
 gradio_app = gr.Interface(
     fn=predict,

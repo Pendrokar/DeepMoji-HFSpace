@@ -14,7 +14,7 @@ from transformers import AutoModel, AutoTokenizer
 model_name = "Pendrokar/TorchMoji"
 model = AutoModel.from_pretrained(model_name, cache_dir="~/.cache/huggingface/hub/")
 tokenizer = AutoTokenizer.from_pretrained(model_name)
-model_path = f"~/.cache/huggingface/hub/{model_name}/pytorch_model.bin"
+model_path = "~/.cache/huggingface/hub/pytorch_model.bin"
 vocab_path = './' + model_name + "/vocabulary.json"
 
 def top_elements(array, k):
@@ -29,7 +29,7 @@ model = torchmoji_emojis(model_path)
 
 def predict(deepmoji_analysis):
     output_text = "\n"
-    tokenized, _, _ = st.tokenize_sentences(TEST_SENTENCES)
+    tokenized, _, _ = st.tokenize_sentences([deepmoji_analysis])
     prob = model(tokenized)
 
     for prob in [prob]:
@@ -37,7 +37,7 @@ def predict(deepmoji_analysis):
         # correspond to the mapping in emoji_overview.png
         # at the root of the torchMoji repo.
         scores = []
-        for i, t in enumerate(TEST_SENTENCES):
+        for i, t in enumerate([deepmoji_analysis]):
             t_tokens = tokenized[i]
             t_score = [t]
             t_prob = prob[i]

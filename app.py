@@ -1,32 +1,75 @@
+from __future__ import print_function, division, unicode_literals
+
 import gradio as gr
-import torch
-from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification, DistilBertForSequenceClassification
 
-modelName = "Pendrokar/TorchMoji"
+import sys
+from os.path import abspath, dirname
 
-distil_tokenizer = AutoTokenizer.from_pretrained(modelName)
-distil_model = AutoModelForSequenceClassification.from_pretrained(modelName, problem_type="multi_label_classification")
+import json
+import numpy as np
 
-pipeline = pipeline(task="text-classification", model=distil_model, tokenizer=distil_tokenizer)
+from torchmoji.sentence_tokenizer import SentenceTokenizer
+from torchmoji.model_def import torchmoji_emojis
+
+model_name = "Uberduck/torchmoji"
+model_path = model_name + "/pytorch_model.bin"
+vocab_path = model_name + "/vocabulary.json"
+
+def top_elements(array, k):
+    ind = np.argpartition(array, -k)[-k:]
+    return ind[np.argsort(array[ind])][::-1]
+
+maxlen = 30
+
+print('Tokenizing using dictionary from {}'.format(vocab_path))
+with open(vocab_path, 'r') as f:
+    vocabulary = json.load(f)
+
+st = SentenceTokenizer(vocabulary, maxlen)
+
+print('Loading model from {}.'.format(model_path))
+model = torchmoji_emojis(model_path)
+print(model)
+
+def doImportableFunction():
+    return
 
 def predict(deepmoji_analysis):
-    predictions = pipeline(deepmoji_analysis)
-
     output_text = "\n"
-    for p in predictions:
-        output_text += p['label'] + ' (' + str(p['score']) + ")\n"
-    return str(distil_tokenizer(deepmoji_analysis)["input_ids"]) + output_text
+    print('Running predictions.')
+    tokenized, _, _ = st.tokenize_sentences(TEST_SENTENCES)
+    prob = model(tokenized)
+
+    for prob in [prob]:
+        # Find top emojis for each sentence. Emoji ids (0-63)
+        # correspond to the mapping in emoji_overview.png
+        # at the root of the torchMoji repo.
+        scores = []
+        for i, t in enumerate(TEST_SENTENCES):
+            t_tokens = tokenized[i]
+            t_score = [t]
+            t_prob = prob[i]
+            ind_top = top_elements(t_prob, 5)
+            t_score.append(sum(t_prob[ind_top]))
+            t_score.extend(ind_top)
+            t_score.extend([t_prob[ind] for ind in ind_top])
+            scores.append(t_score)
+            output_text += t_score
+
+    return str(tokenized) + output_text
 
 gradio_app = gr.Interface(
     fn=predict,
     inputs="text",
     outputs="text",
     examples=[
-        "This GOT show just remember LOTR times!",
-        "Man, can't believe that my 30 days of training just got a NaN loss",
-        "I couldn't see 3 Tom Hollands coming...",
-        "There is nothing better than a soul-warming coffee in the morning",
-        "I fear the vanishing gradient", "deberta"
+        "You love hurting me, huh?",
+        "I know good movies, this ain't one",
+        "It was fun, but I'm not going to miss you",
+        "My flight is delayed.. amazing.",
+        "What is happening to me??",
+        "This is the shit!",
+        "This is shit!",
     ]
 )
 

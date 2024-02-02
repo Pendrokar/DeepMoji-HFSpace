@@ -13,7 +13,7 @@ from torchmoji.model_def import torchmoji_emojis
 
 from huggingface_hub import hf_hub_download
 
-model_name = "Pendrokar/TorchMoji"
+model_name = "Uberduck/torchmoji"
 model_path = hf_hub_download(repo_id=model_name, filename="pytorch_model.bin")
 vocab_path = hf_hub_download(repo_id=model_name, filename="vocabulary.json")
 
@@ -54,11 +54,18 @@ def predict(deepmoji_analysis, emoji_count):
 
     return str(tokenized) + output_text
 
+input_textbox = gr.Textbox(
+    label="English Text",
+    lines=1,
+    value=""
+)
+slider = gr.Slider(1, 64, value=5, step=1, label="Top # Emoji", info="Choose between 1 and 64")
+
 gradio_app = gr.Interface(
     predict,
     [
-        "text",
-        gr.Slider(1, 64, value=5, step=1, label="Top # Emoji", info="Choose between 1 and 64"),
+        input_textbox,
+        slider,
     ],
     outputs="text",
     examples=[
@@ -69,7 +76,8 @@ gradio_app = gr.Interface(
         ["What is happening to me??", 5],
         ["This is the shit!", 5],
         ["This is shit!", 5],
-    ]
+    ],
+    live=True
 )
 
 if __name__ == "__main__":

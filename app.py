@@ -14,7 +14,7 @@ from transformers import AutoModel, AutoTokenizer
 model_name = "Pendrokar/TorchMoji"
 model = AutoModel.from_pretrained(model_name, cache_dir="~/.cache/huggingface/hub/")
 tokenizer = AutoTokenizer.from_pretrained(model_name)
-model_path = "~/.cache/huggingface/hub/{model_name}/pytorch_model.bin"
+model_path = f"~/.cache/huggingface/hub/{model_name}/pytorch_model.bin"
 vocab_path = './' + model_name + "/vocabulary.json"
 
 def top_elements(array, k):

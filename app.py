@@ -12,8 +12,8 @@ from torchmoji.sentence_tokenizer import SentenceTokenizer
 from torchmoji.model_def import torchmoji_emojis
 
 model_name = "Uberduck/torchmoji"
-model_path = model_name + "/pytorch_model.bin"
-vocab_path = model_name + "/vocabulary.json"
+model_path = './' + model_name + "/pytorch_model.bin"
+vocab_path = './' + model_name + "/vocabulary.json"
 
 def top_elements(array, k):
     ind = np.argpartition(array, -k)[-k:]

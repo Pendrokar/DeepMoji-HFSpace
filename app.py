@@ -10,9 +10,10 @@ import numpy as np
 
 from torchmoji.sentence_tokenizer import SentenceTokenizer
 from torchmoji.model_def import torchmoji_emojis
-from transformers import AutoModel
+from transformers import AutoModel, AutoTokenizer
 model_name = "Pendrokar/TorchMoji"
 model = AutoModel.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(modelName)
 model_path = model
 vocab_path = './' + model_name + "/vocabulary.json"
 
@@ -22,11 +23,11 @@ def top_elements(array, k):
 
 maxlen = 30
 
-print('Tokenizing using dictionary from {}'.format(vocab_path))
-with open(vocab_path, 'r') as f:
-    vocabulary = json.load(f)
+# print('Tokenizing using dictionary from {}'.format(vocab_path))
+# with open(vocab_path, 'r') as f:
+#     vocabulary = json.load(f)
 
-st = SentenceTokenizer(vocabulary, maxlen)
+st = SentenceTokenizer(tokenizer.get_added_vocab(), maxlen)
 
 print('Loading model from {}.'.format(model_path))
 model = torchmoji_emojis(model_path)

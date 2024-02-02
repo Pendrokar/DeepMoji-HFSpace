@@ -17,13 +17,16 @@ model_name = "Uberduck/torchmoji"
 model_path = hf_hub_download(repo_id=model_name, filename="pytorch_model.bin")
 vocab_path = hf_hub_download(repo_id=model_name, filename="vocabulary.json")
 
+emoji_codes = []
+with open('./data/emoji_codes.json', 'r') as f:
+    emoji_codes = json.load(f)
+
 def top_elements(array, k):
     ind = np.argpartition(array, -k)[-k:]
     return ind[np.argsort(array[ind])][::-1]
 
 maxlen = 30
 
-print('Tokenizing using dictionary from {}'.format(vocab_path))
 with open(vocab_path, 'r') as f:
     vocabulary = json.load(f)
 
@@ -32,7 +35,7 @@ st = SentenceTokenizer(vocabulary, maxlen)
 model = torchmoji_emojis(model_path)
 
 def predict(deepmoji_analysis, emoji_count):
-    output_text = "\n"
+    return_label = dict[str, float]
     tokenized, _, _ = st.tokenize_sentences([deepmoji_analysis])
     prob = model(tokenized)
 
@@ -42,24 +45,21 @@ def predict(deepmoji_analysis, emoji_count):
         # at the root of the torchMoji repo.
         scores = []
         for i, t in enumerate([deepmoji_analysis]):
-            t_tokens = tokenized[i]
-            t_score = [t]
             t_prob = prob[i]
-            ind_top = top_elements(t_prob, emoji_count)
-            t_score.append(sum(t_prob[ind_top]))
-            t_score.extend(ind_top)
-            t_score.extend([t_prob[ind] for ind in ind_top])
-            scores.append(t_score)
-            output_text += str(t_score)
+            # sort top
+            ind_top_ids = top_elements(t_prob, emoji_count)
 
-    return str(tokenized) + output_text
+            for ind in ind_top_ids:
+                return_label[emoji_codes[ind]] = t_prob[ind]
+
+    return return_label
 
 input_textbox = gr.Textbox(
     label="English Text",
     lines=1,
     value=""
 )
-slider = gr.Slider(1, 64, value=5, step=1, label="Top # Emoji", info="Choose between 1 and 64")
+slider = gr.Slider(1, 64, value=5, step=1, label="Top # Emoji", info="Choose between 1 and 64 top emojis to show")
 
 gradio_app = gr.Interface(
     predict,
@@ -67,7 +67,7 @@ gradio_app = gr.Interface(
         input_textbox,
         slider,
     ],
-    outputs="text",
+    outputs="label",
     examples=[
         ["You love hurting me, huh?", 5],
         ["I know good movies, this ain't one", 5],

@@ -11,7 +11,7 @@ import numpy as np
 from torchmoji.sentence_tokenizer import SentenceTokenizer
 from torchmoji.model_def import torchmoji_emojis
 from transformers import AutoModel
-model_name = "Uberduck/torchmoji"
+model_name = "Pendrokar/TorchMoji"
 model = AutoModel.from_pretrained(model_name)
 model_path = model
 vocab_path = './' + model_name + "/vocabulary.json"

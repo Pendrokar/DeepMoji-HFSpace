@@ -10,19 +10,22 @@ import numpy as np
 
 from torchmoji.sentence_tokenizer import SentenceTokenizer
 from torchmoji.model_def import torchmoji_emojis
-from transformers import AutoModel, AutoTokenizer
+
+from huggingface_hub import hf_hub_download
+
 model_name = "Pendrokar/TorchMoji"
-model = AutoModel.from_pretrained(model_name, cache_dir="~/.cache/huggingface/hub/")
-model.save_pretrained("~/.cache/huggingface/hub/TorchMoji/pytorch_model.bin")
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model_path = "~/.cache/huggingface/hub/TorchMoji/pytorch_model.bin"
-vocab_path = './' + model_name + "/vocabulary.json"
+model_path = hf_hub_download(repo_id=model_name, filename="pytorch_model.bin")
+vocab_path = hf_hub_download(repo_id=model_name, filename="vocabulary.json")
 
 def top_elements(array, k):
     ind = np.argpartition(array, -k)[-k:]
     return ind[np.argsort(array[ind])][::-1]
 
 maxlen = 30
+
+print('Tokenizing using dictionary from {}'.format(vocab_path))
+with open(vocab_path, 'r') as f:
+    vocabulary = json.load(f)
 
 st = SentenceTokenizer(tokenizer.get_added_vocab(), maxlen)
 

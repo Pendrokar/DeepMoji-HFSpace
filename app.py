@@ -27,7 +27,7 @@ print('Tokenizing using dictionary from {}'.format(vocab_path))
 with open(vocab_path, 'r') as f:
     vocabulary = json.load(f)
 
-st = SentenceTokenizer(tokenizer.get_added_vocab(), maxlen)
+st = SentenceTokenizer(vocabulary, maxlen)
 
 model = torchmoji_emojis(model_path)
 

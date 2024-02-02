@@ -62,13 +62,13 @@ gradio_app = gr.Interface(
     ],
     outputs="text",
     examples=[
-        [5, "You love hurting me, huh?"],
-        [5, "I know good movies, this ain't one"],
-        [5, "It was fun, but I'm not going to miss you"],
-        [5, "My flight is delayed.. amazing."],
-        [5, "What is happening to me??"],
-        [5, "This is the shit!"],
-        [5, "This is shit!"],
+        ["You love hurting me, huh?", 5],
+        ["I know good movies, this ain't one", 5],
+        ["It was fun, but I'm not going to miss you", 5],
+        ["My flight is delayed.. amazing.", 5],
+        ["What is happening to me??", 5],
+        ["This is the shit!", 5],
+        ["This is shit!", 5],
     ]
 )
 

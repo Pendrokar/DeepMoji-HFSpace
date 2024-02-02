@@ -10,6 +10,7 @@ import numpy as np
 
 from torchmoji.sentence_tokenizer import SentenceTokenizer
 from torchmoji.model_def import torchmoji_emojis
+from emoji import emojize
 
 from huggingface_hub import hf_hub_download
 
@@ -50,7 +51,12 @@ def predict(deepmoji_analysis, emoji_count):
             ind_top_ids = top_elements(t_prob, emoji_count)
 
             for ind in ind_top_ids:
-                return_label[emoji_codes[str(ind)]] = t_prob[ind]
+                # unicode emoji + :alias:
+                label_emoji = emojize(emoji_codes[str(ind)], language="alias")
+                label_name = label_emoji + emoji_codes[str(ind)]
+                # propability
+                label_prob = t_prob[ind]
+                return_label[label_name] = label_prob
 
     return return_label
 

@@ -3,6 +3,7 @@ from __future__ import print_function, division, unicode_literals
 import gradio as gr
 
 import sys
+from os import environ
 from os.path import abspath, dirname
 
 import json
@@ -14,7 +15,7 @@ from transformers import AutoModel, AutoTokenizer
 model_name = "Pendrokar/TorchMoji"
 model = AutoModel.from_pretrained(model_name)
 tokenizer = AutoTokenizer.from_pretrained(model_name)
-model_path = './' + model_name + "/pytorch_model.bin"
+model_path = environ['TRANSFORMERS_CACHE'] + "/pytorch_model.bin"
 vocab_path = './' + model_name + "/vocabulary.json"
 
 def top_elements(array, k):

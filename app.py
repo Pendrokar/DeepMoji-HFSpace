@@ -50,7 +50,7 @@ def predict(deepmoji_analysis):
             t_score.extend(ind_top)
             t_score.extend([t_prob[ind] for ind in ind_top])
             scores.append(t_score)
-            output_text += t_score
+            output_text += str(t_score)
 
     return str(tokenized) + output_text
 

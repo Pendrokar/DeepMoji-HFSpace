@@ -31,7 +31,7 @@ st = SentenceTokenizer(vocabulary, maxlen)
 
 model = torchmoji_emojis(model_path)
 
-def predict(deepmoji_analysis):
+def predict(deepmoji_analysis, emoji_count):
     output_text = "\n"
     tokenized, _, _ = st.tokenize_sentences([deepmoji_analysis])
     prob = model(tokenized)
@@ -45,7 +45,7 @@ def predict(deepmoji_analysis):
             t_tokens = tokenized[i]
             t_score = [t]
             t_prob = prob[i]
-            ind_top = top_elements(t_prob, 5)
+            ind_top = top_elements(t_prob, emoji_count)
             t_score.append(sum(t_prob[ind_top]))
             t_score.extend(ind_top)
             t_score.extend([t_prob[ind] for ind in ind_top])
@@ -55,17 +55,20 @@ def predict(deepmoji_analysis):
     return str(tokenized) + output_text
 
 gradio_app = gr.Interface(
-    fn=predict,
-    inputs="text",
+    predict,
+    [
+        "text",
+        gr.Slider(1, 64, value=5, step=1, label="Top # Emoji", info="Choose between 1 and 64"),
+    ],
     outputs="text",
     examples=[
-        "You love hurting me, huh?",
-        "I know good movies, this ain't one",
-        "It was fun, but I'm not going to miss you",
-        "My flight is delayed.. amazing.",
-        "What is happening to me??",
-        "This is the shit!",
-        "This is shit!",
+        [5, "You love hurting me, huh?"],
+        [5, "I know good movies, this ain't one"],
+        [5, "It was fun, but I'm not going to miss you"],
+        [5, "My flight is delayed.. amazing."],
+        [5, "What is happening to me??"],
+        [5, "This is the shit!"],
+        [5, "This is shit!"],
     ]
 )
 

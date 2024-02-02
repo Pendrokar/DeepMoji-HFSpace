@@ -14,7 +14,7 @@ from transformers import AutoModel, AutoTokenizer
 model_name = "Pendrokar/TorchMoji"
 model = AutoModel.from_pretrained(model_name)
 tokenizer = AutoTokenizer.from_pretrained(model_name)
-model_path = model
+model_path = './' + model_name + "/pytorch_model.bin"
 vocab_path = './' + model_name + "/vocabulary.json"
 
 def top_elements(array, k):
@@ -23,22 +23,12 @@ def top_elements(array, k):
 
 maxlen = 30
 
-# print('Tokenizing using dictionary from {}'.format(vocab_path))
-# with open(vocab_path, 'r') as f:
-#     vocabulary = json.load(f)
-
 st = SentenceTokenizer(tokenizer.get_added_vocab(), maxlen)
 
-print('Loading model from {}.'.format(model_path))
 model = torchmoji_emojis(model_path)
-print(model)
-
-def doImportableFunction():
-    return
 
 def predict(deepmoji_analysis):
     output_text = "\n"
-    print('Running predictions.')
     tokenized, _, _ = st.tokenize_sentences(TEST_SENTENCES)
     prob = model(tokenized)
 

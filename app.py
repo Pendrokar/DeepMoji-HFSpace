@@ -13,6 +13,7 @@ from torchmoji.model_def import torchmoji_emojis
 from transformers import AutoModel, AutoTokenizer
 model_name = "Pendrokar/TorchMoji"
 model = AutoModel.from_pretrained(model_name, cache_dir="~/.cache/huggingface/hub/")
+model.save_pretrained("~/.cache/huggingface/hub/TorchMoji/pytorch_model.bin")
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model_path = "~/.cache/huggingface/hub/TorchMoji/pytorch_model.bin"
 vocab_path = './' + model_name + "/vocabulary.json"

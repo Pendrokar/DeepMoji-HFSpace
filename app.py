@@ -50,7 +50,7 @@ def predict(deepmoji_analysis, emoji_count):
             ind_top_ids = top_elements(t_prob, emoji_count)
 
             for ind in ind_top_ids:
-                return_label[emoji_codes[ind]] = t_prob[ind]
+                return_label[emoji_codes[str(ind)]] = t_prob[ind]
 
     return return_label
 

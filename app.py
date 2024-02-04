@@ -125,7 +125,7 @@ gradio_app = gr.Interface(
     cache_examples=True,
     live=True,
     title="🎭 DeepMoji 🎭",
-    allow_duplication=True,
+    # allow_duplication=True,
     # flagged saved to hf dataset
     # FIXME: gradio sends output as a saveable filename, crashing flagging
     # allow_flagging="manual",

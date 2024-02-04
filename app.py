@@ -78,22 +78,23 @@ def predict(deepmoji_analysis, emoji_count):
 
     return return_label
 
+default_input = "This is the shit!"
+
 input_textbox = gr.Textbox(
     label="English Text",
     info="ignores: emojis, emoticons, numbers, URLs",
     lines=1,
-    value="This is the shit!",
+    value=default_input,
     autofocus=True
 )
 slider = gr.Slider(1, 64, value=5, step=1, label="Top # Emoji", info="Choose between 1 and 64 top emojis to show")
-
 gradio_app = gr.Interface(
     predict,
     [
         input_textbox,
         slider,
     ],
-    outputs=gr.Label(label="Suitable Emoji"),
+    outputs=gr.Label(label="Suitable Emoji", value={"🫥":1}),
     examples=[
         ["This is shit!", 5],
         ["You love hurting me, huh?", 5],

@@ -2,15 +2,23 @@
 title: DeepMoji
 emoji: 🎭
 colorFrom: yellow
-colorTo: gray
+colorTo: blue
 sdk: gradio
 sdk_version: 4.8.0
+suggested_hardware: cpu-basic
 python_version: 3.8
-model_name: hf-deepmoji
-base_model: Uberduck/torchmoji
+models:
+  - Uberduck/torchmoji
 app_file: app.py
-pinned: false
-license: gpl-3.0
+tags:
+  - emotion
+  - sentiment
+  - emoji
+  - emoticon
+pinned: true
+preload_from_hub:
+  - Uberduck/torchmoji
+license: mit
 ---
 
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+Fork of: [https://github.com/huggingface/torchMoji](https://github.com/huggingface/torchMoji)

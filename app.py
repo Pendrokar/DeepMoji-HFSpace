@@ -3,6 +3,7 @@ from __future__ import print_function, division, unicode_literals
 import gradio as gr
 
 import sys
+import os
 from os.path import abspath, dirname
 
 import json
@@ -13,6 +14,9 @@ from torchmoji.model_def import torchmoji_emojis
 from emoji import emojize
 
 from huggingface_hub import hf_hub_download
+
+HF_TOKEN = os.getenv('HF_TOKEN')
+hf_writer = gr.HuggingFaceDatasetSaver(HF_TOKEN, "crowdsourced-deepmoji-flags")
 
 model_name = "Uberduck/torchmoji"
 model_path = hf_hub_download(repo_id=model_name, filename="pytorch_model.bin")
@@ -102,8 +106,10 @@ gradio_app = gr.Interface(
     live=True,
     title="🎭 DeepMoji 🎭",
     allow_duplication=True,
+    # flagged saved to hf dataset
     allow_flagging="manual",
-    flagging_options=["sarcasm/innuendo 😏", "Top # unsuitable/other"]
+    flagging_options=["'🚩 sarcasm / innuendo 😏'", "'🚩 unsuitable / other'"],
+    flagging_callback=hf_writer
 )
 
 if __name__ == "__main__":

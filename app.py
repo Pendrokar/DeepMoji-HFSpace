@@ -18,7 +18,7 @@ from huggingface_hub import hf_hub_download
 HF_TOKEN = os.getenv('HF_TOKEN')
 hf_writer = gr.HuggingFaceDatasetSaver(
     HF_TOKEN,
-    "Pendrokar/crowdsourced-deepmoji-flags",
+    "crowdsourced-deepmoji-flags",
     private=True,
     separate_dirs=False
 )

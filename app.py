@@ -88,13 +88,24 @@ input_textbox = gr.Textbox(
     autofocus=True
 )
 slider = gr.Slider(1, 64, value=5, step=1, label="Top # Emoji", info="Choose between 1 and 64 top emojis to show")
+
 gradio_app = gr.Interface(
     predict,
     [
         input_textbox,
         slider,
     ],
-    outputs=gr.Label(label="Suitable Emoji", value={"🫥":1}),
+    outputs=gr.Label(
+        label="Suitable Emoji",
+        # could not auto select example output
+        value={
+            "🎧:headphones:" :0.10912112891674042,
+            "🎶:notes:" :0.10073345899581909,
+            "👌:ok_hand:" :0.05672002583742142,
+            "👏:clap:" :0.0559493824839592,
+            "👍:thumbsup:" :0.05157269537448883
+        }
+    ),
     examples=[
         ["This is shit!", 5],
         ["You love hurting me, huh?", 5],

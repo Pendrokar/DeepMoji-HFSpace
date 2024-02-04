@@ -4,9 +4,7 @@ emoji: 🎭
 colorFrom: yellow
 colorTo: blue
 sdk: gradio
-sdk_version: 4.8.0
 suggested_hardware: cpu-basic
-python_version: 3.8
 models:
   - Uberduck/torchmoji
 app_file: app.py

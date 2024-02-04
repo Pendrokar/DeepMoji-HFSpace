@@ -73,7 +73,7 @@ gradio_app = gr.Interface(
         input_textbox,
         slider,
     ],
-    outputs="label",
+    outputs=gr.Label(label="Suitable Emoji"),
     examples=[
         ["You love hurting me, huh?", 5],
         ["I know good movies, this ain't one", 5],
@@ -83,7 +83,9 @@ gradio_app = gr.Interface(
         ["This is the shit!", 5],
         ["This is shit!", 5],
     ],
-    live=True
+    cache_examples=True,
+    live=True,
+    title="🎭 DeepMoji 🎭"
 )
 
 if __name__ == "__main__":

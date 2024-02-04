@@ -31,10 +31,6 @@ emoji_codes = []
 with open('./data/emoji_codes.json', 'r') as f:
     emoji_codes = json.load(f)
 
-def top_elements(array, k):
-    ind = np.argpartition(array, -k)[-k:]
-    return ind[np.argsort(array[ind])][::-1]
-
 maxlen = 30
 
 with open(vocab_path, 'r') as f:
@@ -43,6 +39,13 @@ with open(vocab_path, 'r') as f:
 st = SentenceTokenizer(vocabulary, maxlen)
 
 model = torchmoji_emojis(model_path)
+
+def pre_hf_writer(*args):
+    return hf_writer(args)
+
+def top_elements(array, k):
+    ind = np.argpartition(array, -k)[-k:]
+    return ind[np.argsort(array[ind])][::-1]
 
 def predict(deepmoji_analysis, emoji_count):
     if deepmoji_analysis.strip() == '':
@@ -124,9 +127,10 @@ gradio_app = gr.Interface(
     title="🎭 DeepMoji 🎭",
     allow_duplication=True,
     # flagged saved to hf dataset
-    allow_flagging="manual",
-    flagging_options=["'🚩 sarcasm / innuendo 😏'", "'🚩 unsuitable / other'"],
-    flagging_callback=hf_writer
+    # FIXME: gradio sends output as a saveable filename, crashing flagging
+    # allow_flagging="manual",
+    # flagging_options=["'🚩 sarcasm / innuendo 😏'", "'🚩 unsuitable / other'"],
+    # flagging_callback=hf_writer
 )
 
 if __name__ == "__main__":

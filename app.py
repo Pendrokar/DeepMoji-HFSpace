@@ -85,7 +85,10 @@ gradio_app = gr.Interface(
     ],
     cache_examples=True,
     live=True,
-    title="🎭 DeepMoji 🎭"
+    title="🎭 DeepMoji 🎭",
+    allow_duplication=True,
+    allow_flagging="manual",
+    flagging_options=["sarcasm/innuendo 😏", "Top # unsuitable/other"]
 )
 
 if __name__ == "__main__":

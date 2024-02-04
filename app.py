@@ -36,7 +36,7 @@ st = SentenceTokenizer(vocabulary, maxlen)
 model = torchmoji_emojis(model_path)
 
 def predict(deepmoji_analysis, emoji_count):
-    if deepmoji_analysis.trim() == '':
+    if deepmoji_analysis.strip() == '':
         # dotted face emoji
         return {"🫥":1}
 

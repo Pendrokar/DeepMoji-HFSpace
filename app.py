@@ -36,8 +36,18 @@ st = SentenceTokenizer(vocabulary, maxlen)
 model = torchmoji_emojis(model_path)
 
 def predict(deepmoji_analysis, emoji_count):
+    if deepmoji_analysis.trim() == '':
+        # dotted face emoji
+        return {"🫥":1}
+
     return_label = {}
+    # tokenize input text
     tokenized, _, _ = st.tokenize_sentences([deepmoji_analysis])
+
+    if len(tokenized) == 0:
+        # dotted face emoji
+        return {"🫥":1}
+
     prob = model(tokenized)
 
     for prob in [prob]:
@@ -58,11 +68,15 @@ def predict(deepmoji_analysis, emoji_count):
                 label_prob = t_prob[ind]
                 return_label[label_name] = label_prob
 
+    if len(return_label) == 0:
+        # dotted face emoji
+        return {"🫥":1}
+
     return return_label
 
 input_textbox = gr.Textbox(
     label="English Text",
-    info="ignores: emojis, URLs, @",
+    info="ignores: emojis, emoticons, numbers, URLs",
     lines=1,
     value="This is the shit!",
     autofocus=True

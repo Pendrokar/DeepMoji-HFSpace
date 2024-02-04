@@ -1,7 +1,7 @@
-emoji
-numpy
-torch
-scipy
-scikit-learn
-text-unidecode
-nose
+emoji==2.10.1
+numpy==1.0
+torch==2.2.0
+scipy==1.12.0
+scikit-learn==1.4.0
+text-unidecode==1.3
+nose==1.3.7

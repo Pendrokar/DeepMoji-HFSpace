@@ -23,7 +23,7 @@ hf_writer = gr.HuggingFaceDatasetSaver(
     separate_dirs=False
 )
 
-model_name = "Uberduck/torchmoji"
+model_name = "Pendrokar/TorchMoji"
 model_path = hf_hub_download(repo_id=model_name, filename="pytorch_model.bin")
 vocab_path = hf_hub_download(repo_id=model_name, filename="vocabulary.json")
 

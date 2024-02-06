@@ -1,5 +1,5 @@
 ---
-title: DeepMoji
+title: DeepMoji Text Sentiment
 emoji: 🎭
 colorFrom: yellow
 colorTo: blue
@@ -11,6 +11,7 @@ models:
   - Pendrokar/TorchMoji
 app_file: app.py
 tags:
+  - text-sentiment
   - emotion
   - sentiment
   - emoji
@@ -22,3 +23,10 @@ license: mit
 ---
 
 Fork of: [https://github.com/huggingface/torchMoji](https://github.com/huggingface/torchMoji)
+
+Tags:
+  - text-sentiment
+  - emotion
+  - sentiment
+  - emoji
+  - emoticon

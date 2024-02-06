@@ -8,7 +8,7 @@ sdk_version: 4.16.0
 suggested_hardware: cpu-basic
 python_version: 3.10
 models:
-  - Uberduck/torchmoji
+  - Pendrokar/TorchMoji
 app_file: app.py
 tags:
   - emotion
@@ -17,7 +17,7 @@ tags:
   - emoticon
 pinned: true
 preload_from_hub:
-  - Uberduck/torchmoji
+  - Pendrokar/TorchMoji
 license: mit
 ---
 
